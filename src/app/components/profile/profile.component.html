@@ -1,0 +1,97 @@
+<style>
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        margin: auto;
+        text-align: center;
+        font-family: arial;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+  
+    a {
+        text-decoration: none;
+        font-size: 22px;
+        color: black;
+        padding-left: 10px;
+    }
+
+   
+</style>
+<div class="container" style="position:relative; z-index: -1;">
+    <div class="row my-2">
+        <div class="col-lg-8 order-lg-2">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                </li>
+                
+            </ul>
+            <div class="tab-content py-4">
+                <div class="tab-pane active" id="profile">
+                    <h5 class="mb-3">User Profile</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Designation</h6>
+                            <p>
+                              {{designation}}
+                            </p>
+                            <h6>permissions</h6>
+                            <p>
+                               {{permissions}}
+                            </p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Recent Edits
+                            </h5>
+                            <table class="table table-sm table-hover table-striped">
+                                <tbody>
+                                    <tr *ngFor="let question of recentquestions">
+                                        <td>
+                                           <!-- onboardee:  {{question.onboardeeName}}, 
+                                           updatedFields: {{question.updatedFields}} -->
+                                            {{question.updatedFields}} of Onboardee {{question.onboardeeName}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- recent answers -->
+
+                        <!-- <div class="col-md-12">
+                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Recently Answered Questions
+                            </h5>
+                            <table class="table table-sm table-hover table-striped">
+                                <tbody>
+                                    <tr *ngFor="let answer of recentanswers">
+                                        <td>
+                                            {{answer.questionValue}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-lg-4 order-lg-1 text-center">
+            <div class="card">
+                <img src="{{profile}}" alt="John" style="width:100%">
+                <h1>{{name}}</h1>
+                <p>{{email}}</p>
+                <div>
+                    <a href=""><i class="fab fa-dribbble"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                    <a href=""><i class="fab fa-linkedin"></i></a>
+                    <a href=""><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>

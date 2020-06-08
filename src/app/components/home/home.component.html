@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .media:hover {
+            background-color:lightgreen;
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container mt-3">
+        <h2>Onboardees</h2>
+        <div style="padding-top: 15px;" class="media border p-3" *ngFor="let question of questions[0]">
+            <div class="media-body" style="display: flex;cursor: pointer;" data-toggle="modal" data-target="#mModal" (click)="fillIt(question)">
+                <div class="votes" style="font-size: 20px;font-weight: bold;padding-left: 10px;">
+                    <span>{{question.onboardeeId}}</span><br>
+                    <span>Id</span>
+                </div>
+                <div class="answers" style="font-size: 20px; font-weight: bold;padding-left: 10px;">
+                    <span>{{question.dob}}</span><br>
+                    <span>DOB</span>
+                </div>
+                <!-- <h4>John Doe <small><i>Posted on February 19, 2016</i></small></h4> -->
+                <p style="font-size: 20px;padding-left: 10px;">skills: {{question.skills}}<br />
+                    Developer: {{question.developerType}}</p>
+            </div>
+            <div style="display: flex;
+            flex-direction: column;">
+                <span style="font-size: 20px;">Name</span>
+                <span>{{question.name}}</span>
+               <button type="button" (click)="deleteOnboardee(question.onboardeeId,question.dId)" class="btn btn-outline-danger">Delete Onboardee</button>
+              
+            </div>
+            <br />
+        </div>
+    </div>
+    <div class="modal fade" id="mModal">
+        <div   class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header" style="background-color:lightgreen">
+                    <span>Update Onboardee Details</span>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>Name</label>
+                        <input type="text" [(ngModel)]="name" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>DOB (dd/mm/yyyy)</label>
+                        <input type="text" [(ngModel)]="dob" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>Address</label>
+                        <input type="text" [(ngModel)]="address" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>Skills</label>
+                        <input type="text" [(ngModel)]="skills" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>onboarding date (dd/mm/yyyy)</label>
+                        <input type="text" [(ngModel)]="onboardingStartDate" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>estimated time of arrival (dd/mm/yyyy)</label>
+                        <input type="text" [(ngModel)]="eta" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>Background check status</label>
+                        <input type="text" [(ngModel)]="bgcCheckStatus" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                       
+                        <label>Onboarding Status</label>
+                        <input type="text" [(ngModel)]="onboardingStatus" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>Location</label>
+                        <input type="text" [(ngModel)]="location" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                        
+                        <label>Developer type</label>
+                        <input type="text" [(ngModel)]="developerType" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                       
+                        <label>Experience</label>
+                        <input type="number" [(ngModel)]="experience" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <div class="question" style="display:flex;flex-direction: column;">
+                       
+                        <label>Updated Fields</label>
+                        <input type="text" [(ngModel)]="updatedFields" place-holder="e.g What is final keyword in java?">
+                    </div>
+                    <!-- <div class="category" style="display: flex;">
+                        <div class="form-group">
+                            <label for="cat">Category</label>
+                            <select class="form-control"  [(ngModel)]="category" (change)="OncatChange($event.target.value)">
+                                <option *ngFor="let item of categories" >{{item}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subcategory" style="display: flex;">
+                        <div class="form-group">
+                            <label>Sub Category</label>
+                            <select class="form-control" [(ngModel)]="subcategory" (change)="OnsubcatChange($event.target.value)">
+                                <option *ngFor="let item of subcategories">{{item}}</option>
+                            </select>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" (click)="updateOnboardee()" class="btn btn-info">Update Onboardee</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

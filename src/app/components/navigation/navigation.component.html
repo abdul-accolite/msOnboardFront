@@ -1,0 +1,331 @@
+<html>
+
+<head>
+    <title>msOnboarding</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <style>
+        .main {
+            width: 100%;
+            height: 100%;
+        }
+
+        .btn-google {
+            color: white;
+            background-color: #ea4335;
+        }
+
+        .header {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 10px;
+            padding-left: 10px;
+            overflow: hidden;
+            height: 80px;
+            background-color: #33b5e5;
+        }
+
+        .logo {
+            order: 0;
+            display: block;
+            height: 100px;
+            padding: 0%;
+        }
+
+        .lgnbtn {
+            margin-left: auto;
+            order: 2;
+            display: block;
+            color: white;
+            text-align: center;
+            padding-right: 20px;
+        }
+
+        .Login {
+            background-color: dodgerblue;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .profile {
+            order: 2;
+            display: block;
+            color: white;
+            text-align: center;
+            padding-right: 20px;
+            border-radius: 50%;
+        }
+
+        img {
+            height: inherit;
+        }
+
+        .ask {
+            background-color: dodgerblue;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+        }
+
+        .search {
+            background-color: white;
+            max-height: 200px;
+            width: inherit;
+            position: absolute;
+            overflow-y: scroll;
+            z-index: 0;
+            border: 1px solid;
+            border-color: #a8acbc #babdcc #c0c3d2;
+            margin-top: -25px;
+        }
+
+        .results {
+            list-style-type: none;
+            padding: 0;
+
+        }
+
+        .results li {
+            padding-left: 10px;
+        }
+
+        .results li:hover {
+            background-color: #338cdf;
+            color: #fff;
+            text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+            border-color: #2380dd #2179d5 #1a60aa;
+            background-color: #338cdf;
+
+        }
+
+        .dropdownbtn {
+            background-color: #33b5e5;
+            color: #fff;
+            height: 40px;
+            border: 1px;
+            border-radius: 8px;
+            ;
+
+        }
+
+        .dropdown {
+            margin: auto;
+            color: #fff;
+
+        }
+
+        .listcategory li:hover {
+            background-color: lightgreen;
+            color: #fff;
+            text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+            border-color: #2380dd #2179d5 #1a60aa;
+
+        }
+
+        .listcategory {
+            padding: 0;
+            list-style: none;
+            position: fixed;
+            background-color: white;
+            border: 1px solid;
+            border-color: #a8acbc #babdcc #c0c3d2;
+            border-radius: 5%;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="header" style="background-color: lightgreen;">
+            <div class="logo" (click)="homeredirect()" style="cursor: pointer;">
+                <!-- <img src="../../../assets/images/accoflowlogo.png"> -->
+                <h4 style="margin-top: 30px;">msonboarding</h4>
+            </div>
+            <form action="" style="margin: auto; width: 40%;">
+                <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" style="position: relative;z-index: 1;">
+                    <div class="input-group">
+                        <input type="search" placeholder="Who're you searching for?" aria-describedby="button-addon1"
+                            class="form-control border-0 bg-light" style="border-radius: 40%;"
+                            (input)="onSearchChange($event.target.value)">
+                        <div class="input-group-append">
+                            <button id="button-addon1" type="submit" class="btn btn-link text-primary">
+                                <i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="search" [style.display]="display">
+                    <ul *ngFor="let question of matchquestion" class="results">
+                        <li data-toggle="modal" data-target="#mModal" (click)="fillIt(question)">
+                            {{question.name}}
+                        </li>
+                    </ul>
+                </div>
+
+            </form>
+            <!-- <button type="button" style="background-color: #33b5e5;border-color: #33b5e5;" class="btn btn-primary" (click)="viewanalytics()">
+                Analytics
+            </button> -->
+            <div class="dropdown">
+                <div>
+                    <button class="dropdownbtn" (click)="opendropdown()" style="background-color: lightgreen;">Analytics<i style="padding-left: 10px;"
+                            class="fa fa-angle-down"></i></button>
+
+                </div>
+                <div style="background-color: #fff;color: black;overflow-y: scroll;z-index: 0;">
+                    <ul [style.display]="categorydisplay" style="list-style: none;" class="listcategory">
+                        <li (click)="viewanalytics()" class="btn btn-outline-success">
+                            locationPie chart
+                        </li>
+                        <li (click)="viewskillpie()" class="btn btn-outline-success">
+                            developer pie chart
+                        </li>
+                        <li (click)="viewmanagerpie()" class="btn btn-outline-success">
+                            manager pie chart
+                        </li>
+                        <li (click)="viewskillbar()" class="btn btn-outline-success">
+                            skills chart
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" style="cursor: pointer;background-color: lightgreen;color:white" class="btn btn-light"
+                data-toggle="modal" data-target="#myModal">
+                Add Onboardee
+            </button>
+
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header" style="background-color:lightgreen">
+                            <span>Add Onboardee Details</span>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Name</label>
+                                <input type="text" [(ngModel)]="name" place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>DOB (dd/mm/yyyy)</label>
+                                <input type="text" [(ngModel)]="dob" place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Address</label>
+                                <input type="text" [(ngModel)]="address"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Skills</label>
+                                <input type="text" [(ngModel)]="skills"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>onboarding date (dd/mm/yyyy)</label>
+                                <input type="text" [(ngModel)]="onboardingStartDate"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>estimated time of arrival (dd/mm/yyyy)</label>
+                                <input type="text" [(ngModel)]="eta" place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Background check status</label>
+                                <input type="text" [(ngModel)]="bgcCheckStatus"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Onboarding Status</label>
+                                <input type="text" [(ngModel)]="onboardingStatus"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Location</label>
+                                <input type="text" [(ngModel)]="location"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Developer type</label>
+                                <input type="text" [(ngModel)]="developerType"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <div class="question" style="display:flex;flex-direction: column;">
+                                <small class="text-danger" [style.display]="danger">*please enter all the
+                                    details</small>
+                                <label>Experience</label>
+                                <input type="number" [(ngModel)]="experience"
+                                    place-holder="e.g What is final keyword in java?">
+                            </div>
+                            <!-- <div class="category" style="display: flex;">
+                                <div class="form-group">
+                                    <label for="cat">Category</label>
+                                    <select class="form-control"  [(ngModel)]="category" (change)="OncatChange($event.target.value)">
+                                        <option *ngFor="let item of categories" >{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="subcategory" style="display: flex;">
+                                <div class="form-group">
+                                    <label>Sub Category</label>
+                                    <select class="form-control" [(ngModel)]="subcategory" (change)="OnsubcatChange($event.target.value)">
+                                        <option *ngFor="let item of subcategories">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" (click)="postquestion()" class="btn btn-success">Add Onboardee</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="profile" style="cursor: pointer;" (click)="viewprofile()">
+                <img src="{{data[0].image}}" alt="Profile" style="width:45px;border-radius: 50%;">
+                <span style="padding-left: 10px;">{{data[0].name}}</span>
+                <span style="padding-left: 20px;cursor:pointer" (click)="logout()">Logout</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
